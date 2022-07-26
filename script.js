@@ -20,6 +20,16 @@ backgroundLayer5.src = 'images/layer-5.png';
 // let x = 0; // position for the first image
 // let x2 = 2400; // position for second identical image
 
+// slider
+const slider = document.getElementById('slider');
+slider.value = gameSpeed; // linking slider value to the game speed
+const showGameSpeed = document.getElementById('showGameSpeed');
+slider.addEventListener('change', function (e){ // listen for change event and callback function
+    console.log(e.target.value)
+    gameSpeed = e.target.value;
+    showGameSpeed.innerHTML = gameSpeed; // taking span from index and showing current game speed on page (live updated)
+});
+
 // creating js class - used to create many similar objects, this is the blueprint ->shared properties and values, but some properties will have different values
 class Layer {
     // constructor only runs once per object
@@ -33,6 +43,7 @@ class Layer {
         this.speedModifier = speedModifier; // passed as argument on line 26
         this.speed = gameSpeed * this.speedModifier; // how fast the image layer is moving calculated by global variable gameSpeed - '* this.speedModifier' allows to pass different speed modifier values for each layer
     }
+
     // custom method update - move layers horizontally by changing this.x and this.x2 properties from lines 27 and 31 and reset when layers move offscreen
     update(){
         this.speed = gameSpeed * this.speedModifier; // recalculate this.speed to make it dynamic
@@ -79,5 +90,5 @@ function animate() {
         object.draw(); // for each call the draw method
     })
     requestAnimationFrame(animate); // build in function and passing the parent function
-};
+}
 animate();
