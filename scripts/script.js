@@ -87,10 +87,11 @@ window.addEventListener('load', function () {
             this.image = image;
         }
     }
-        // function for drawing player on the canvas
-        function drawPlayer(image, x, y, width, height) {
-            ctx.drawImage(image, x, y, width, height)
-        }
+
+    // function for drawing player on the canvas
+    function drawPlayer(image, x, y, width, height) {
+        ctx.drawImage(image, x, y, width, height)
+    }
 
     // constant variable for the player
     const player = new Player(playerImage, 100, 100)
@@ -109,9 +110,13 @@ window.addEventListener('load', function () {
         // const myGif = GIF();
         // myGif.load('./images/mc.gif')
         drawPlayer(player.image, player.x, player.y, player.width, player.height);
-        // movePlayer();
+        movePlayer();
         requestAnimationFrame(animate); // build in function and passing the parent function
     }
 
     animate();
+
+    function movePlayer() {
+
+    }
 });
