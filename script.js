@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d') // 'ctx' -> shortcut for 'context'
 const CANVAS_WIDTH = canvas.width = 800; //super global - if width and height are not set here, it will default to 300*150 px
 const CANVAS_HEIGHT = canvas.height = 700; //super global
-let gameSpeed = 5; // let so it can be reassigned
+let gameSpeed = 4; // let so it can be reassigned
 
 // creating image elements
 const backgroundLayer1 = new Image();
