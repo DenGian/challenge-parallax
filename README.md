@@ -2,8 +2,8 @@
 
 ---
 ## MaTS
-![meme](images/img.png)
+![meme](images/meme.png)
 
 ---
 ## About
-
+![](images/mc.gif)
