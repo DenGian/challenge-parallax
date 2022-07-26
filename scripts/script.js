@@ -1,10 +1,11 @@
+// setup for the canvas
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d') // 'ctx' -> shortcut for 'context'
 const CANVAS_WIDTH = canvas.width = 800; //super global - if width and height are not set here, it will default to 300*150 px
 const CANVAS_HEIGHT = canvas.height = 700; //super global
 let gameSpeed = 4; // let so it can be reassigned
 
-// creating image elements
+// creating image elements for background
 const backgroundLayer1 = new Image();
 backgroundLayer1.src = 'images/layer-1.png';
 const backgroundLayer2 = new Image();
@@ -15,6 +16,10 @@ const backgroundLayer4 = new Image();
 backgroundLayer4.src = 'images/layer-4.png';
 const backgroundLayer5 = new Image();
 backgroundLayer5.src = 'images/layer-5.png';
+
+// creating image elements for player
+const playerImage = new Image();
+playerImage.src = 'images/mc.gif';
 
 // make sure all images and html elements are loaded on page before game starts
 window.addEventListener('load', function () {
@@ -33,7 +38,7 @@ window.addEventListener('load', function () {
         // constructor only runs once per object
         constructor(image, speedModifier) { // constructor expects 2 arguments, image assigned to the layer and speedModifier so each layer can move at different speed
             this.x = 0; // each object has horizontal x-coordinate that starts at position 0
-            this.y = 0;
+            this.y = 0; // each object has vertical y-coordinate that starts at position 0
             this.width = 2400; // all layers will have same width of 2400 pixels
             this.height = 700; // all layers will have same height of 700 pixels
             this.x2 = this.width; // x2 is where the second image starts, second image needs to start where first image ends(at the horizontal position of 2400 pixels)
@@ -72,16 +77,39 @@ window.addEventListener('load', function () {
     const layer4 = new Layer(backgroundLayer4, 0.75);
     const layer5 = new Layer(backgroundLayer5, 1);
 
+// class for the player
+    class Player {
+        constructor(image, width, height) {
+            this.x = 80;
+            this.y = 480;
+            this.width = width;
+            this.height = height;
+            this.image = image;
+        }
+    }
+        // function for drawing player on the canvas
+        function drawPlayer(image, x, y, width, height) {
+            ctx.drawImage(image, x, y, width, height)
+        }
+
+    // constant variable for the player
+    const player = new Player(playerImage, 100, 100)
+
 // to avoid code repetition
-    const gameObjects = [layer1, layer2, layer3, layer4, layer5]; // all layers inside a single array
+    const gameObjectsArray = [layer1, layer2, layer3, layer4, layer5]; // all layers inside a single array
 
 // creating animation loop
     function animate() {
         ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT); // built-in function (expects 4 arguments) for what parts of canvas to delete -> otherwise the animation gets 'smudged'
-        gameObjects.forEach(object => { // run through all elements in the array and apply the callback function given to each of the elements, referred to as objects
+        gameObjectsArray.forEach(object => { // run through all elements in the array and apply the callback function given to each of the elements, referred to as objects
             object.update(); // for each call the update method
             object.draw(); // for each call the draw method
         })
+        console.log(player.image.src);
+        // const myGif = GIF();
+        // myGif.load('./images/mc.gif')
+        drawPlayer(player.image, player.x, player.y, player.width, player.height);
+        // movePlayer();
         requestAnimationFrame(animate); // build in function and passing the parent function
     }
 
